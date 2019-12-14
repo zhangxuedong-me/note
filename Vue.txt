@@ -1017,4 +1017,751 @@ day4
 
 
 				router : router
+			});
+	
+	
+	
+	
+	
+
+	
+day5
+	
+	
+
+	
+		
+	1，动态路由：组件标签携带的参数不同，但是可以进入同一个组件，可以动态的控制组件。那么path路径就不能写死，如果要接收参数，在接收参数的部分加上:冒号，之后就是一个变量了，可以获取不同组件标签访问同一个路由，并且可以获取到他们传递过来的参数	
+		
+		
+		    通过$route.params.name来获取参数			
+
+
+		
+		<div id="app">
+		
+			<router-link to="/city/上海">上海</router-link>
+
+			<router-link to="/city/北京">北京</router-link>
+
+			<router-link to="/city/张家口">张家口</router-link>
+
+			<router-view></router-view>
+		</div>
+		
+		
+		let router = new VueRouter({
+
+			routes : [
+
+				{		此时的name就成为了一个变量，可以接收组件标签传递过来的参数	
+					
+					path : "/city/:name",
+
+					component : {
+
+						template : `
+						
+							<div>你点击的城市是{{$route.params.name}}</div>
+					`
+					}
+				}
+			],
+		});		
+
+
+		
+		let vm = new Vue({
+
+			el : "#app",
+
+			data : {},
+
+			methods : {},
+
+			router,
+		});
+	
+	
+		
+	
+	2，路由组件标签vue-router-to属性赋值的几种方式：
+	
+	
+	
+	
+
+		（1）普通字符串：就是死的路径，不能接收传递的参数
+			
+	
+	
+			
+	
+			<div id="app">
+		
+				<router-link to="/city/name">上海</router-link>
+
+				<router-link to="/city/name">北京</router-link>
+
+				<router-link to="/city/name">张家口</router-link>
+
+				<router-view></router-view>
+			</div>
+		
+		
+			let router = new VueRouter({
+
+				routes : [
+
+					{		此时的name就成为了一个变量，可以接收组件标签传递过来的参数	
+					
+						path : "/city/name",
+	
+						component : {
+
+							template : `
+						
+								<div>你点击的城市是{{$route.params.name}}</div>
+							`
+						}
+					}
+				],
 			});		
+
+
+		
+			let vm = new Vue({
+
+				el : "#app",
+
+				data : {},
+
+				methods : {},
+
+				router,
+			});
+		
+
+
+			
+		（2）对象形式：
+	
+	
+	
+			
+			<div id="app">
+		
+				<router-link :to="{path : '/city/name'}">上海</router-link>
+
+				<router-link :to="{path : '/city/name'}">北京</router-link>
+
+				<router-link :to="{path : '/city/name'}">张家口</router-link>
+
+				<router-view></router-view>
+			</div>
+		
+		
+			let router = new VueRouter({
+
+				routes : [
+
+					{		此时的name就成为了一个变量，可以接收组件标签传递过来的参数	
+					
+						path : "/city/name",
+	
+						component : {
+
+							template : `
+						
+								<div>你点击的城市是{{$route.params.name}}</div>
+							`
+						}
+					}
+				],
+			});		
+
+
+		
+			let vm = new Vue({
+
+				el : "#app",
+
+				data : {},
+
+				methods : {},
+
+				router,
+			});
+				
+		
+
+			
+		（3）自定义属性：
+	
+	
+
+	
+			<div id="app">
+		
+				<router-link :to="{name : abc}">上海</router-link>
+
+				<router-link :to="{name : abc}">北京</router-link>
+
+				<router-link :to="{name : abc}">张家口</router-link>
+
+				<router-view></router-view>
+			</div>
+		
+		
+			let router = new VueRouter({
+
+				routes : [
+
+					{		此时的name就成为了一个变量，可以接收组件标签传递过来的参数	
+					
+						path : "/city/name",
+						
+						name : "abc",						
+
+						component : {
+
+							template : `
+						
+								<div>你点击的城市是{{$route.params.name}}</div>
+							`
+						}
+					}
+				],
+			});		
+
+
+		
+			let vm = new Vue({
+
+				el : "#app",
+
+				data : {},
+
+				methods : {},
+
+				router,
+			});
+		
+	
+		
+		（3）对象带参数：
+	
+	
+	
+
+			<div id="app">
+
+		
+				<router-link :to="{name : abc, params : {name : "上海"}}">上海</router-link>
+
+
+				<router-view></router-view>
+			</div>
+		
+		
+			let router = new VueRouter({
+
+				routes : [
+
+					{		此时的name就成为了一个变量，可以接收组件标签传递过来的参数	
+					
+						path : "/city/:name",					
+						
+						name : "index",
+
+						component : {
+
+							template : `
+						
+								<div>你点击的城市是{{$route.params.name}}</div>
+							`
+						}
+					}
+				],
+			});		
+
+
+		
+			let vm = new Vue({
+
+				el : "#app",
+
+				data : {},
+
+				methods : {},
+
+				router,
+			});
+			
+		
+		
+	
+	3，路由的重定向：
+	
+	
+	
+		（1）概念：当希望某个页面被强制中转时，可采用redirect进行路由重定向设置，在配置路由对象中设置，是一个属性，值是要强行跳转的地址
+	
+	
+			
+			<div id="app">
+		
+				<router-link to="/city/sh">上海</router-link>
+
+				<router-link to="/city/bj">北京</router-link>
+
+				<router-link to="/city/zjk">张家口</router-link>
+
+				<router-view></router-view>
+			</div>
+			
+			let router = new VueRouter({
+
+				routes : [
+
+					{
+						path : "/city/sh",
+
+						component : {
+
+							template : "<div>您取得是上海<div>"
+						}
+					},
+
+					{
+						path : "/city/bj",
+
+						//设置重定向当路由到北京的时候拦截重定向到张家口
+
+						redirect : "/city/zjk",
+
+						component : {
+
+							template : "<div>您取得是北京<div>"
+						}
+
+					},
+
+					{
+						path : "/city/zjk",
+
+						component : {
+
+							template : "<div>您取得是张家口<div>"
+						}
+
+					}
+				],
+			});			
+
+
+			let vm = new Vue({
+
+				el : "#app",
+
+				data : {},
+
+				methods : {},
+
+				router,
+			});
+		
+		
+			
+	4，编程式导航：跟router-link一样，都能实现组件之间的跳转，router-link是根据a标签进行跳转的，而导航式通过绑定click事件，调用$router来进行跳转的。this.$router可以拿到当前路由的实例
+
+		
+		（1）跳转的方法：
+	
+	
+			1，this.$router.push(path)：往历史记录了推了一条记录，如果点击浏览器的返回上一页按钮，可以返回上一页
+			
+			
+			2，this.$router.replace(path)：替换了当前的记录历史记录并没有多，但是地址会变
+			
+			
+			3，this.$router.go(number)：代表是前进还是后退，数字大于0是前进，小于0是后退
+
+	
+			
+		<div id="app">
+			
+			
+			容器必须有
+			<router-view></router-view>
+		</div>
+		
+	
+		let objA = {
+
+			template : `<div>
+		
+				我是A页面我要去B页面
+				<button @click="goB">去B页面</button>	
+			</div>`,
+
+			methods : {
+
+				goB() {
+
+					//使用push方法会有历史记录，可以返回到上一个页面
+					this.$router.push("/B");
+				
+					//第二种方法
+				
+					// router.push("/B");
+					console.log(this.$router);
+				}
+			}
+		}
+
+		let objB = {
+
+			template : `
+			
+				<div>我是B，我要去C
+				
+					<button @click="goC">去C页面</button>
+				</div>
+			`,
+
+			methods : {
+
+				goC() {
+
+					// replace：替换当前的记录
+					this.$router.replace("/C");
+				}
+			}
+
+		}
+		let objC = {
+
+			template : `<div>C页面，我要去A页面
+			
+				<button @click="goA"></button>
+			</div>`,
+
+			methods : {
+
+				goA() {
+
+					// go：后退后退多少页，大于0是前进，小于0是后退
+					this.$router.go(-1);
+				}
+			}
+		}
+		
+		
+		配置路由表
+		let router = new VueRouter({
+
+			routes : [
+
+				{path : "/", redirect : "/A"},
+				{path : "/A", component : objA},
+				{path : "/B", component : objB},
+				{path : "/C", component : objC}
+			],
+		});
+		
+			
+		
+		
+	5，路由激活样式：可以改变当前点击组件的class样式
+	
+	
+		
+		let router = new VueRouter({
+
+			//通过linkActiveClass可以改变组件标签的class属性
+			linkActiveClass : "dong",	
+
+			routes : [
+
+							//当点击北京的时候强制重定向到重庆
+
+				{path : "/bj", redirect : "cq", component : temp},
+
+				{path : "/sh", component : temp2},
+
+				{path : "/cq", component : temp3}
+
+			]
+		});
+
+	
+		let vm = new Vue({
+
+			el : "#app",
+
+			data : {},
+
+			methods : {},
+
+			router,
+		});
+	
+	
+	6，路由的嵌套：
+	
+		
+
+		let router = new VueRouter({
+
+
+			routes : [
+
+				{
+					path : "/city/bj",
+					
+
+					//设置二级路由导航
+					
+					children : [
+						
+						{
+							path : "cp",
+							
+							component : {
+
+	
+								template : "<div>昌平区</div>"
+							}
+						},
+
+						{
+							path : "hd",
+							
+							component : {
+
+	
+								template : "<div>海淀区</div>"
+							}
+						},
+
+						{
+							path : "cy",
+							
+							component : {
+
+	
+								template : "<div>朝阳区</div>"
+							}
+						},
+
+					],
+					
+					component : {
+
+						template : "<div>
+		
+							<p>这是北京</p>
+							
+
+							//设置二级组件标签
+							<router-link to="cp">昌平</router-link>
+
+							<router-link to="hd">海淀</router-link>
+
+							<router-link to="cy">朝阳</router-link>
+	
+						</div>"
+					}
+				
+				}
+			]
+		});
+	
+	
+		let vm = new Vue({
+
+			el : "#app",
+
+			data : {},
+
+			methods : {},
+
+			router,
+		});
+	
+	
+
+	
+	
+
+	
+	7，vue-cli工具的介绍：
+		
+	
+
+	
+		（1）是一个开发脚手架，是一个开发辅助工具用于自动生成vue.js+webpack的项目模板
+	
+	
+	
+	
+		（2）安装方法：
+	
+	
+	
+			1，全局安装：npm i  -g @vue/cli 默认的版本是4.0+
+	
+	
+	
+	
+			2，补全2.0版本：npm i -g @vue/cli-init 把2.0的版本也补上
+	
+	
+			
+		（3）使用脚手架：
+	
+	
+
+			（1）使用2.0版本：
+	
+	
+
+				1，vue init webpack-simple 项目名称    创建一个项目
+		
+				
+				
+				2，cd 项目名称 切换到当前的项目
+	
+	
+				
+				3，npm i   安装依赖
+	
+	
+				
+				4，npm run dev   启动运行项目
+		
+	
+	
+			（2）使用4.0版本：
+	
+		
+	
+	
+				1，vue create 项目名称     创建项目
+	
+		
+	
+		
+				2，cd 项目名称     进入项目
+	
+	
+
+				3，npm run serve    启动项目
+	
+		
+		
+			
+		（4）项目目录的介绍：
+	
+	
+	
+	
+			（1）bablelrc：es6特性浏览器还没有全部支持，但是使用es6是大势所趋，所以babel用来将es6代码转成浏览器能够识别的代码。
+			
+				
+			
+			（2）editorconfig：存放的是编译器的配置信息
+	
+
+	
+			（3）gitignore：可以获取一些不需要提交的文件。
+	
+		
+
+			（4）index.html ：单页应用的html
+			
+
+			
+			（5）package.json：用于存放依赖信息及其它的项目信息
+
+	
+
+			（6）README.md：项目的介绍信息
+	
+	
+	
+			（7）webpack.config.js：wepack工具的配置文件。webpack是一个前端工程化的工具  编译代码 -压缩代码- 处理代码,其他....
+			
+			
+			
+			（8）webpack：代码编译,打包 压缩
+	
+		
+	
+			（2）editorconfig：
+	
+		
+
+
+
+		（6）ES6模块的导入和导出
+			
+		
+				
+			1，模块的导入：import 变量 from 路径  来引入组件
+	
+	
+	
+			2，使用export default来导出我们的组件
+	
+	
+		
+		
+		（6）vue的单文件和入口的解析：
+	
+	
+
+	
+			1，main.js：整个项目的入口文件
+	
+	
+	
+			2，App.vue：整个项目的根组件
+	
+	
+			
+			3，单文件组件：一个.vue的文件就是一个组件
+	
+			
+			
+			4，注意：vue选项中的render函数若是存在，则Vue构造函数不会从template`选项或通过 `el` 选项指定的挂载元素中提取出的 HTML 模板编译渲染函数。
+			
+	
+			
+			5，介绍：
+	
+
+				
+				（1）在cli开发模式下，一个.vue就是一个文件就是一个组件
+	
+	
+	
+				（2）template 组件的页面结构 代表它的 html 结构 
+	
+	
+	
+				（3）必须在里面放置一个 html 标签来包裹所有的代码 
+	
+	
+
+				（4）我们在其他地方写好了一个组件，然后就可以在当前template中引入
+			
+	
+
+				（5）script ：组件的逻辑结构及数据对象
+	
+		
+				
+				（6）style 组件的样式：就是针对我们的 template 里内容出现的 html 元素写一些样式 
+		
