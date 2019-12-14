@@ -1,0 +1,1206 @@
+一、
+		
+	
+	
+	1，cmd命令：
+		
+		
+		
+		（1）notepad（no特盘的）：打开记事本
+		
+		（2）mspaint：打开画图
+		
+		（3）calc：打开计算机
+		
+		（4）write：写字板
+		
+		（5）Sysdm.cpl：打开环境变量设置窗口
+		
+		（6）md：创建目录
+		
+		（7）rd：删除目录
+		
+		（8）cd：进入指定目录
+		
+		（9）cd..：返回到上一级目录
+		
+		（10）cd\：返回到根目录
+			
+		（11）del：删除文件
+		
+		（12）help：
+			
+		（13）ipconfig（爱康非个）：查找电脑的ip地址和其他资料
+
+	
+	
+	补充：
+			
+		
+		
+		1，在cmd命令上输入node回车，即可进入node自带的repl环境。此时可以写入node代码，如果要退出的话需要连续按俩下ctrl+c键
+			
+			
+		
+		2，node是什么：node不是一个js文件，而是一个软件是一个基于chrome V8引擎的ECMAScript的运行环境，在这个环境中可以写任何代码。
+			
+			
+			
+		3，node和浏览器的关系：
+			
+			
+			
+			（1）都可以运行js代码
+				
+			
+			（2）浏览器不但可以执行ECMAScript代码，并且还内置了window对象，所以浏览器可以处理dom和bom对象。
+			
+				
+			（3）node也可以执行ECMAScript代码，node也内置了一些东西，全局成员和模块系统，同时还可以插入第三方模块来完成这个功能
+			
+			
+			（4）在node中this指向global，在浏览器中this指向window
+		
+			
+			
+		4，node和javascript的区别：
+			
+	
+	
+			（1）node是平台，js是编程语言
+			
+				
+			（2）node是一个基于chrome javascript运行时建立的平台，它是对goole v8引擎进行了封装的运行环境。
+			
+				
+			（3）在node中不能使用bom对象和dom对象。
+		
+		
+			
+			
+		5，学习node的意义：
+				
+			
+			
+			（1）我们可以把js的代码部署到服务器上
+			
+				
+			（2）进一步的了解接口的开发，和后端交互的知识。
+			
+			
+			（3）使js和操作系统互动（读写文件）
+			
+			
+			
+		6，node中的模块化：
+			
+			
+			
+			（1）在一个js文件中可以引入其他的js文件，能使用引入js的文件中的变量，数据，这种特性被称为模块化
+			
+				
+			（2）好处：可以解决变量，函数名冲突的问题。可以解决文件之间的依赖关系。可以进行代码的复用。
+		
+			
+			
+		7，node中的模块
+		
+				
+			
+			（1）每个模块都是一个独立的文件，每一个模块都可以完成特定的功能，我们需要就去引入他们，然后调用。
+			
+			
+			（2）node模块的分类：（1）核心模块（就是node自带的模块）（2）自定义模块：程序员自己写的模块。（3）第三方的模块
+			
+			
+			（3）fs模块：是用来操作文件这一块的文件，fs是FileSystem的简写。
+				
+				
+				
+				1，readFile(url, code, callback)异步：回调函数的第一个参数是错误对象，当不发生错误的时候会返回null，需要先处理错误对象。第二个参数是读取的数据。如果不设置编码的话，文件内容默认以buffer形式返回。
+					
+					
+					特点：会一次性的把整个文件的内容读取到缓冲区，如果文件太大的话会造成缓冲区爆仓。						
+					
+
+								
+				2，readFileSync(url, code)同步
+				
+				
+				3，writeFile(url, data, code, callback)：写入方法，向文件中写入数据，注意每一写入放入数据会把上一次的数据覆盖
+				
+				
+				4，appendFile()文件追加：参数和writeFile一样，他只会追加写入数据，不会覆盖，如果没有这个文件的话，他会自己创建
+			
+				
+				5，路径的问题：读写文件的url要写绝对路径，如果写相对路径的话，而且小窗口不是在当前文件所在的地方打开的话，会读取不到文件
+				
+
+
+	2，nodeJs开发准备：
+
+		
+		（1）普通安装方式：https://nodejs.org/zh-cn/
+		
+			
+		（2）多版本安装方式：
+		
+	
+	3，全局成员概述：
+		
+		
+		（1）__filename：获取当前文件名称
+		
+			
+		（2）__dirname：获取当前文件的路径
+		
+		
+		（3）process.argv：是一个数组，默认情况下，前俩项数据分别是：node.js环境的路径，和当前js文件的全路径。从第三个参数开始表示命令行参数。
+		
+		
+		（4）process.arch：打印当前系统的架构（64位或者32位）
+		
+		
+		
+	4，模块开发
+		
+		
+		（1）前端标准模块化规范：
+			
+			
+			（1）AMD - require.js
+			
+			（2）CMD - sea.js
+		
+			
+		（2）服务器端模块化规范：
+			
+			
+			（1）Commonjs - node.js
+			
+		
+		（3）模块化相关的规则：
+
+			
+			（1）一个js文件就是一个模块，模块化的成员都是相互独立的
+			
+			
+		（4）模块成员的导出和引入：
+			
+			
+			（1）通过exports方法将模块成员导出
+
+			（2）通过require(url)方法导入，他的参数是要导入的js文件名和路径。
+
+		
+		
+
+
+
+二、
+		
+		
+	
+
+	
+		
+	1，nodeJs基础：
+			
+			
+		1，buffer对象：
+			
+			
+			静态方法完成：
+			
+				
+				（1）Buffer.alloc(5)：存储5个字节
+				
+				（2）Buffer.from()：将字符转成16进制
+				
+				（3）Buffer.from('char', '编码')
+
+				（4）Buffer.isEncoding(编码)：判断buffer对象是否支持某种编码
+				
+				（5）Buffer.isBuffer(buf实例化对象)：判断某个对象是否是buffer对象
+				
+				（6）Buffer.byteLength(buf实例化对象)：查看当前字符有多少个字节长度
+					
+				（7）Buffer.concat([buf1, buf2], 20)：将多个buffer对象连接成一个，他的第二个参数可以指定字节长度
+				
+			
+			
+			实例化对象：
+				
+				
+				（1）write("hello", 2, 2)：像buffer对象中写入字符，第二个参数是从第几个字节开始写，第二个参数是写入多少个字节
+				
+				（2）slice()：截取buffer对象中的数据，他会返回一个新的buffer对象。俩个参数，第一个参数从什么位置开始截取，第二个参数是截取到什么位置结束
+				
+				（3）JSON.stringify(buf)：会把字符转成10进制。
+				
+		
+
+		
+	2，路径的操作：
+		
+			
+		
+		（1）require('path');：要导入的路径
+		
+
+		（2）path.basename(url)：获取路径的最后一部分（也就是文件名）
+			
+		
+		（3）path.extname('index.html')：获取扩展名称
+			
+		
+	
+	
+	3，路径的格式化处理：
+		
+		
+		
+		（1）path.format()：将对象转成字符串
+			
+		（2）path.parse()：将字符串转成对象
+		
+		（3）path.basename()：该方法返回path的最后一部分，一般用来获取路径中的文件夹
+			
+		（4）path.extname()：获取文件中的扩展名
+	
+		（5）path.dirname()：返回该目录除了最后一部分
+
+		
+	4，判断是否是绝对路径：
+		
+			
+		
+		（1）path.isAbsolute('C:/abc')：判断是否是绝对路径
+		
+			
+		（2）path.join('/foo', 'bar', 'baz/asdf', 'quux', '../../')：拼接路径../表示返回到上一级
+
+		
+		（3）path.normalize(url)：将不规范化的路径规范化
+		
+			
+		（4）path.relative('C:\\orandea\\test\\abc\\aaa', 'C:\\orandea\\test\\abc\\ooo')：计算绝对路径。第一个参数是开始计算，第二个参数是结束。
+		
+		
+		（5）path.resolve('wwwroot', 'static_files.png', '../image.gif')：解析路径，是以当前路径来解析的（解析的是绝对路径）
+		
+		
+	
+	5，俩个特殊的属性：
+		
+		
+	
+		（1）path.delimiter：环境变量分隔符（window是;，linux是:）
+		
+		
+		（2）path.sep：表示路径分割符（windows/，Linux是\）
+		
+		
+	
+			
+	6，查看文件状态的方法：
+
+		
+		（1）require('fs')：定义之后，定义变量接收，调用里面的方法来查看。
+	
+		
+		（2）.stat()：第一个参数是文件或者文件名，第二个参数是一个匿名函数，函数包括俩个参数是err代表错误，stat是对象调离他的方法可以查看文件的一些信息
+		
+		
+		（3）stat.isFile()：判断是否是文件
+		
+		
+		（4）stat.isDirectory()：判断是否是目录
+
+
+		属性：
+			
+		
+		  stat.atime：获取文件被访问的时间
+
+		  stat.ctime：文件的状态信息发生变化的时间（比如文件的权限）
+
+		  stat.mtime：文件数据发生变化的时间
+
+		  stat.brithtime：文件创建的时间
+
+	
+	7，http模块（创建服务器）：
+		
+			
+		
+		（1）createServer(callback)：创建服务器对象，接收俩个参数，第一个参数req请求的对象，第二个参数res响应对象
+			
+			
+		（2）listen(port, callback)：第一个参数是端口号，第二个参数是回调函数
+		
+			
+		（3）基本网络概念：
+			
+			
+			1，ip地址：一个网络设备的表示在某一个具体网络的地址。
+				
+				
+				IP地址分类：ipV4和ipV6：ipV4的ip已经分配完了
+			
+			
+			2，域名：ip地址的别名，由于ip地址在不同局域网设备下的ip地址不同，所有起个域名比较容易记住，常见的域名（localhost特指的是127.0.0.1）
+			
+			
+
+			3，端口号：一个ip地址的端口号有65536个，不同的端口被不同的软件占用，以便提供不同的服务。
+			
+			
+			4，http协议：
+				
+				
+				（1）超文本传输协议
+				
+				
+				（2）协议的双方：浏览器与文本服务器都要遵守的协议
+				
+				
+			
+			5，理解http请求和响应：
+		
+	
+	
+				（1）服务器对象其中的参数是一个匿名的回调函数，当有http请求进来时就会被调用，每请求一次就调用一次
+				
+				
+				（2）函数有俩个参数非常重要：
+					
+					
+					1，req：表示来自客户端浏览器的请求。
+						
+						
+						常用的属性：
+							
+				
+							req.url：本次请求的地址
+					
+							req.method：获取请求行中的请求类型
+			
+							req.headers：获取请求头信息
+			
+
+						
+					2，res：表示对于此次请求的相应
+
+
+						res.end()：把本次的请求返回给客户端浏览器，否则浏览器会一直等待。
+						
+						
+						res.setHeader('content-type', 'text/html;charset=utf-8')：设置响应头，如果不设置的话，响应中文会出现乱码
+				
+
+						res.statusCode：设置响应的状态码
+			
+
+	
+		（4）处理静态资源
+			
+			
+			（1）为不同的文件设置不同的请求头信息：
+			
+			
+					
+				html文件：res.setHeader("content-type","text/html;charset=utf-8");
+		
+				
+				css文件：res.setHeader("content-type","text/css;charset=utf-8");
+			
+				
+				javascript文件：res.setHeader("content-type","application/javascript");
+				
+				
+				png图片：res.setHeader("content-type","image/png");
+			
+				
+				其他类型的网站：https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+			
+
+
+			（2）资源的分类:
+				
+				
+				
+				静态资源：就是一个一个的文件，一般读取出文件的内容再返回给客户端
+				
+					
+				
+				动态资源：就是接口。他们不是以某个文件存在的，而是服务器上的一段代码，访问接口时服务器会返回这段代码，然后把代码返回给浏览器客户端
+				
+		
+
+	8，url模块：
+		
+			
+			
+		（1）理解url：统一资源定位符
+				
+				
+			
+			格式：协议://主机地址:[端口号]/路径?查询字符串#锚点
+			
+			
+			http请求默认的端口是80
+			
+			
+			https请求默认的端口号是443
+			
+			
+			MySQL：默认端口3306
+			
+			
+		
+		（2）url模块的作用：对请求的url地址进行各种的解析，进而得到各种信息
+			
+				
+			
+			方法：
+				
+				
+				1，url.parse(url,boolean)：可以将url字符串地址转成对象格式的数据，方便我们拿到每一个部分。如果第二个参数为true的话，那么url后面参数的部分也会解析成对象
+			
+				
+				2，url.format()：将对象格式的路径转成字符串。
+			
+
+		
+			
+				
+
+
+			
+三、
+		
+			
+		
+	
+	1，npm全称（Node Package Manager）：是用来管理第三方库和插件的。是基于couchdb的一个数据库，详细的记录了每个包的信息等。
+	
+		
+			
+	2，包与模块：一个模块就是一个js文件，如果模块多了的话不容易管理，一个包包含了很多的模块
+		
+		
+	
+	3，通过npm运行：
+		
+			
+		
+		（1）先初始化项目：在新创建的文件里先初始化一个package.json文件，这个文件记录了我们当前项目的基本信息
+			
+				
+			
+			通过命令：npm init --yes或者npm init -y
+		
+			
+			
+		（2）安装包：生成了package.json文件后就可以安装第三方包。
+			
+		
+			
+			通过命令：npm install 包名
+		
+			
+			
+		（3）使用包：使用node中的require的方法导入进来使用
+		
+			
+			
+		（4）npm init命令：也是初始化一个项目，包含项目的初始化信息，但是他需要在cmd命令中一步一步的填写信息
+		
+		
+	
+		（5）package.json文件：内容都是json字符串，用来对当前项目进行整体描述，其中最外层可以看成是一个js的对象。
+		
+			
+		
+		（6）node_modules文件夹：这个文件夹保存着我们从npm下载来的第三方的包。在使用npm install 包名之后会修改这个文件夹中的内容。
+			
+		    如果有package.json文件的话。根据开发依赖和生产依赖的不同会把这些记录在devDependencies或者是dependencies列表中。如果没有的话，会给一个警告信息
+			
+			
+			
+	4，全局安装和本地安装：就是要把第三方的包通过什么方式下载，下载到什么位置。
+			
+			
+		
+		（1）全局安装：包被安装到了系统目录中（一般在磁盘node_modules中）。全局安装的包可以在任何地方使用	
+				
+				
+				
+			通过命名：npm install -g(全局) 包名
+				
+			通过命名：npm root -g 查看全局包的安装目录
+			
+			通过命令：npm list -g --depth 0 查看全局安装过的包
+		
+			
+			
+		（2）本地安装：安装在当前项目的根目录下，与package.json同级目录的node_modules。
+				
+				
+			
+			通过命令：npm install 包名
+		
+			
+			
+		（3）区别：
+				
+				
+			1，全局安装的包：一般可提供直接执行的命令。我们通过对一些工具类的包采用这种方式安装。
+				
+					
+				
+				gulb, nodemon, live-server, nrm等前缀来运行js文件
+			
+				
+			2，本地安装的包：需要通过require引入的包。
+			
+			
+		
+		（4）全局安装nrm包：可以来手动设置从哪里去下载包。这个工具帮助我们来切换安装包的来源。
+			
+				
+				
+			第一步全局安装：npm install nrm -g
+				
+			
+			第二步：列出所有源的信息 通过命令 nrm ls（*）标注就是当前使用的源
+			
+			
+			第三步可以切换源：nrm ues taobao
+				
+			
+			接下来安装你需要的包。
+			
+			
+			
+			
+	5，开发依赖和生产依赖：就是开发的时候我们需要用的这个包，但是这个包又需要依赖其他的包
+			
+			
+		
+		（1）开发依赖：在开发环境中用到的依赖。保存到开发依赖是（deDependencies）。
+
+			
+			通过命令：npm install 包名 --save-dev
+			
+			
+		（2）生产依赖：就是项目做好完成之后需要部署上线的依赖。保存到生产依赖是（dependencies）
+		
+
+			通过命令：npm install 包名 --save
+
+
+
+	6，如果不想使用nrm的话，使用原生的命令可以切换镜像源
+		
+			
+		
+		npm config set registry https://registry.npm.taobao.org	
+
+		
+		//验证是否成功
+		npm config get registry		
+	
+
+
+	
+
+其他部分nmp的命令：
+		
+			
+			
+	1，命令部分：
+		
+			
+		
+		（1）npm -v：查看npm版本
+			
+			
+		（2）where node：查看node的安装目录
+			
+		
+		（3）where npm：查看npm的安装目录
+			
+		
+		（4）npm install npm --global 或者 npm install npm -g 升级npm
+		
+		
+		（5）安装指定版本的包：npm install 包名@版本号
+			
+			
+		（6）把install简写成i：npm i 包名
+	
+		
+		（7）删除本地安装的包：npm uninstall 本地安装的包名
+			
+			
+		（8）删除全局安装的包：npm uninstall -g 全局安装的包名
+	
+
+		（9）安装生产环境的包：npm install --production
+		
+			
+		（10）可以把文件变成html文件格式，会变成左右架构样式：i5ting_toc -f 文件名 -o
+
+
+
+
+
+Express框架的使用：
+		
+		
+	
+	1，介绍：是一个基于node平台，快速，开放，极简的web开发框架。
+	
+		
+		
+	2，使用步骤：
+		
+			
+		
+		（1）先初始化一个package.json文件：通过命令npm init --yes
+		
+			
+		
+		（2）安装express到项目中：npm install express
+		
+		
+		
+		（3）引入express：使用require方法引入
+			
+			
+			const express = require("express");
+
+
+		（4）调用函数express函数：
+	
+			
+			
+			const app = express();	//相当于创建了个服务器
+
+			//这里写服务器的代码
+			
+			app.listen(9999, callback)//写端口部分，其余的代码在他们俩中间写
+	
+		
+	3，静态托管：可以让用户访问我们的静态资源
+		
+			
+		
+		express.static("写需要托管的文件名或者文件夹名")
+			
+			
+		//使用方法：
+			
+			
+			app.use(express.static("写需要托管的文件名或者文件夹名"));
+		
+			
+		
+		
+		（1）加上前缀：如果托管俩个文件夹，俩个文件夹都有相同名称的页面，这样的话不能够明确的指出访问那个文件夹下的页面，所有加上前缀那个明确的指出。
+			
+				
+			
+			app.use("day1", express.static("写需要托管的文件名或者文件夹名"));
+		
+			
+			app.use("day2", express.static("写需要托管的文件名或者文件夹名"));
+		
+			
+			
+		
+	4，路由：是由一个url和一个特定的http方法（get，post）组成等，涉及到如何处理客户端的请求，每一个路由都可以有一个或者多个处理器函数
+	
+	  当匹配到路由的时候，这个函数将被执行
+		
+			
+			
+			路由
+			app.get(url, callback);
+
+			
+			app.post(url, callback);
+	
+		
+			
+	5，get接口：请求的参数都保存在了req对象的query属性中，直接获取即可。
+		
+	
+	
+
+		app.get("/get", function (req, res) {
+			
+
+			console.log(req,query);
+			
+			req.send("是express给我们封装的方法可以返回对象也不用设置请求头和状态码等");
+			
+			
+			req.json("用来返回json格式的也可以返回对象");
+		});
+		
+			
+		
+	6，post接口：有三种情况接收参数
+		
+			
+		
+		
+		（1）获取普通键值对的方式：
+	
+			
+			1，需要先下载：body-parser的包用来解析参数的
+				
+			
+			2，使用body-parser包：先引入进来，然后使用格式如下
+				
+
+				const bodyParser = require("body-parser");
+			
+				app.use(bodyParser.urlencoded({extended:false}));
+				
+					
+				app.post("/post", function (req, res) {
+
+
+					在使用包之后会req对象会多一个body属性，参数都保存在了req对象的body属性中	
+				
+					console.log(req.body);
+				});
+		
+		
+				extended:false：表示使用系统模块querystring来处理传入的参数
+				
+				
+				extended:true：表示使用第三方模块qs来处理传入参数
+		
+			
+			
+		（2）获取文件上传的方式：
+			
+				
+				
+			1，需要下载第三方的包：multer的这个包，用来处理formData类型的数据（只处理formData类型的文件上传）
+			
+				
+			2，引入到页面中：
+				
+					
+				const multer = require("multer");
+				
+				
+				使用包
+				
+				
+				const upload = multer({dest : "upload/"});上传的文件都会保存在upload这个文件中。如果没有这个文件夹，会自动创建一个
+				
+					
+				//路由需要使用第二个参数upload.single("需要formData中的上传文件的name属性的值")
+				
+				
+				app.post("/post", upload.single("file"), function (req, res) {
+
+					
+					//其他的name属性的参数，任然通过req.body来获取请求的参数
+					
+					
+					//获取请求的文件部分使用：req.file来获取相关信息
+
+				});
+				
+
+	
+			3，处理请求的json格式的：我们可以请求的参数是比较复杂的比如是json格式的。
+				
+				
+				
+				（1）后端需要设置的部分：
+				
+				
+				
+					const bodyParser = require('body-parser')
+					
+					
+					表示要处理json的参数
+					app.use(bodyParser.json())
+				
+					
+					app.post("/post", function (req, res) {
+
+						此时获取的就是json格式的参数
+						console.log(req.body);
+					})
+					
+					
+
+				
+				（2）前端需要设置的部分：
+			
+
+					1，需要把jquery的参数contentType设置为false
+					
+					
+					2，重新再设置contentType属性：application/json;charset=utf-8
+		
+		
+
+		
+	7，RESTful接口：就是前端设备是层出不穷，因此必须有一种统一的机制，方便不同的前端设置和后端通信。RESTful是目前比较成熟的一套互联网应用程序的API设计理论
+
+
+
+		（1）什么是rest：表述性的状态转移，是一种架构的风格。更像是一种设计风格
+		
+			
+			请求的方式：get，post			
+
+			
+		（2）restful：基于http，可以使用xml格式定义或者json格式定义，适用于移动或联网厂商做为业务接口的场景。
+			
+			
+			
+			请求的方式：post，get，put，delete等类型
+		
+			
+	
+		
+		
+	8，中间件技术：帮助拆解主程序的业务逻辑，并且每一个的中间件函数处理的结果都会传递给下一个中间件函数。
+		
+		
+			
+		（1）应用级的中间件
+		
+		
+		（2）路由级的中间件
+		
+		
+		（3）错误的中间件
+		
+		
+		（4）内置的中间件
+		
+		
+		作用：
+		
+			
+		
+			1，执行任何的代码
+		
+			
+			2，修改请求和响应的对象
+		
+			
+			3，调用堆栈中的下一个中间件
+
+			
+
+		格式：
+		
+			
+		
+			app.use(function (req, res, next) {
+
+				
+				表示继续执行下面的中间件
+				next();
+			});
+
+		
+		
+		中间件的执行流程和匹配：
+			
+			
+			
+			app.use(callback（中间件）)：是应用级中间件，所有的请求都能匹配
+		
+			
+			app.use("/abc", callback（中间件）)：只能匹配请求路径是abc的请求
+			
+			
+			app.get("/abc", callback(中间件1), callback(中间件2))：只能匹配get类型并且路径是abc
+
+
+		
+		路由级中间件：如果接口越来越多的话，就不容易管理和维护了。所有将相同需求的接口封装到不同的模块中，然后导入的主模块。
+			
+			
+				
+			（1）创建几个模块用来封装相同的接口
+		
+			
+			
+			（2）将模块导入到住模块
+				
+				
+			
+				const frontRouter = require('./router/front.js');
+
+
+				const serverRouter = require('./router/admin.js');
+				
+			
+			（3）使用模块
+			
+				
+				//第一个参数是自定义的请求路径，后面跟接口的名字，这样就可以指定找那个模块中的接口
+				app.use('/front', frontRouter);
+
+				
+				app.use('/server', serverRouter);
+
+
+
+
+
+	9，跨越
+			
+			
+			
+		
+		（1）什么是跨域：浏览器不允许跨越，处于安全的考虑。跨越就是，协议不同，或者是域名不同，或者是端口号不同，三点有一点符合，那么就是跨域。
+			
+			
+		
+		（2）跨域的错误的执行：数据在跨域的时候任然能给吧参数请求到服务器，但是服务器响应到浏览器的时候，此时浏览器就会报错不允许跨域
+		
+			
+		
+		（3）解决跨域的方法：
+			
+			
+			
+			1，原生的方法：
+			
+	
+
+				借助于script标签发送跨域请求的技巧，但是这并不是ajax请求，并且在函数的后面拼接自定义的函数名，由后端来调用并且传参。src属性指向后端的请求的地址和端口号
+				
+			
+			
+			2，jquery封装的jsonp：在ajax发送请求的时候，指定属性dataType属性值为jsonp即可跨域。但是后端的使用res.jsonp()来响应。
+					
+			
+				注意：只支持get请求跨域的方式
+					
+			
+				原理：
+				
+					
+					（1）产生一个随机的函数名，并且创建这个函数
+				
+					
+					（2）动态的创建script标签，其src就是拼接的后端的接口地址及callback的值。
+			
+				
+					（3）请求成功返回之后，执行第一步创建成功之后的函数
+			
+					
+					（4）销毁第一步中创建的函数及第二部创建的script标签
+			
+
+				
+			
+			3，实现请求跨域的方案二---CORS：是一个w3c的标准，全称是跨域资源共享（Cross-origin resource sharing），他允许浏览器向跨源服务器发送请求。
+			
+				
+				
+				解决：就是后端返回的代码设置一下请求头：res.setHeader("access-control-allow-origin", "*");即可，前端无需关心
+			
+				
+				注意：如果跨域的过程中还有cookie的话则需要再加一个响应头：res.setHeader('Access-Control-Allow-Credentials', 'true');
+			
+
+				安装第三方包来解决：npm i cors
+			
+				
+				使用第三方包：app.use(cors())
+				
+
+	10，使用cookie
+
+		
+		
+		
+		（1）什么是cookie：就是存储在用户计算机上的小文件，保存特定客户端和网站的适量数据，并可以由web服务器或客户端浏览器访问，允许服务器提供针对特定用户定制的页面，或者页面本身可以包含一些知道cookie中数据的角本
+		
+			
+		
+		（2）如何查看cookie的值：去浏览器按下F12找到application中的cookie中查看
+		
+			
+		（3）cookie的用处：跟踪统计用户访问该网站的习惯，比如什么时间访问，访问了那些页面，在每个网页的停留时间等。利用这些信息一方面是可以为用户提供个性化的服务，另一方法可以作为了解用户行为的工具。
+		
+		
+		（4）从服务器端设置cookie给浏览器端：通过setHeader('key', 'value')，这个是原生的方法，如果有多个setHeader('key', 'value')的话，后者会覆盖前者。
+		
+			
+		（5）express通过的方法设置cookie的值：通过res.cookies(key, value, {这个cookie的生命周期是一个毫秒值})，可以设置多个不会有覆盖的问题
+		
+			
+		（6）一个cookie所具有的主要的属性包括：
+
+
+			Domain：域，表示当前cookie所属于哪个域或子域下面。对于服务器返回的Set-Cookie中，如果没有指定Domain的值，那么其Domain的值是默认为当前所提交的http的请求所对应的主域名的。比如访问 http://www.example.com，返回一个cookie，没有指名domain值，那么其为值为默认的www.example.com。
+				
+
+			Path：表示cookie的所属路径。
+
+
+			Expire time/Max-age：表示了cookie的有效期。expire的值，是一个时间，过了这个时间，该cookie就失效了。或者是用max-age指定当前cookie是在多长时间之后而失效。如果服务器返回的一个cookie，没有指定其expire time，那么表明此cookie有效期只是当前的session，即是session cookie，当前session会话结束后，就过期了。对应的，当关闭（浏览器中）该页面的时候，此cookie就应该被浏览器所删除了。
+			
+
+			secure：表示该cookie只能用https传输。一般用于包含认证信息的cookie，要求传输此cookie的时候，必须用https传输。
+
+
+			httponly：表示此cookie必须用于http或https传输。这意味着，浏览器脚本是不允许访问操作此cookie的(你不能在浏览器端通过document.cookie访问)。
+	
+
+
+
+		（7）设置cookie的生命周期：
+		
+				
+			
+			res.cookie('name', 'ok', { expires: new Date(Date.now() + 1000*5) })
+		
+			
+			
+		（8）在服务器端获取cookie：客户端浏览器向服务器发送请求时，会自动在请求头上携带cookie，他被保存在了req.headers.cookie他包含了所有的cookie的值，是字符串类型的
+		
+			
+		
+			把cookie的参数解析成对象键值对：
+		
+				
+				1，需要下载第三方的包：cookie-parser
+			
+			
+				2，将下载好的包导入进来
+					
+
+					const cookieParser = require('cookie-parser');
+
+	
+				3，使用这个包
+				
+
+
+					app.use(cookieParser());
+		
+			
+				
+		（9）删除cookie的值：
+			
+			
+			
+			res.clearCookie(key);
+
+
+
+
+		（10）跨域的cookie需要设置的请求头信息：
+			
+			
+			
+			 res.header('Access-Control-Allow-Origin', req.headers.origin); //需要显示设置来源
+
+  			 res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
+  			 res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
+
+  			 res.header('Access-Control-Allow-Credentials', true); //带cookies
+
+	
+	11，使用session：就是会话，是保存在服务器上的一种机制，当客户端访问服务器的时候，服务器会把信息以某种形式记录在服务器上。和cookie是相反的
+		
+		
+		特点：
+		
+			
+			（1）不是线程安全的，而且创建和删除session都非常的消耗资源，每一个session的实例都有自己的缓存
+			
+			
+	
+		（1）session和cookie的区别：
+		
+	
+			
+			1，cookie以文本格式存储在浏览器上，存储量有限。
+			
+				
+			1，session是存储在服务端，而且是无限量存储，并且比cookie安全
+		
+			
+		
+		
+		（2）需要安装第三方的包：
+		
+			
+			
+			
+			1，安装第三方的包：express-session
+		
+			
+			2，引入session的包
+			
+			
+			3，使用这个包
+			
+		
+			
+				//2. 配置项
+				 let conf = {
+
+ 					 secret: '123456', //加密字符串。 使用该字符串来加密session数据，自定义
+
+ 					 resave: false, //强制保存session即使它并没有变化
+
+ 					 saveUninitialized: false //强制将未初始化的session存储。当新建了一个session且未
+
+  					//设定属性或值时，它就处于未初始化状态。
+
+				 };
+
+				//3. 使用express-session
+
+				app.use(session(conf));
+
+
+
+		（3）session的常用方法：
+			
+				
+			1，设置session的值：
+			
+			
+				req.session.name = 123
+			
+			
+			2，获取session的值：
+				
+				
+				req.session.name
+			
+		
+			3，删除session的值：
+			
+	
+				req.session.destroy()
+		
+			
+
+
+	

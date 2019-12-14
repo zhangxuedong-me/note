@@ -1,0 +1,436 @@
+
+属性部分：
+
+	color: 设置字体颜色。
+
+	font-size: 设置字体大小，单位是像素（px）。
+
+	font-weight: 设置字体加粗。值有：bold或者700（加粗），normal或者400（取消加粗）。
+
+	line-height: 设置行高，单位是像素，也可以设置百分比。如果行高等于父元素（容器的高）前提是容器内只能有一行文字，可以让文字垂直居中对齐。
+
+	text-decoration（但可瑞剩）: underline;给文字设置下划线。
+
+	text-decoration: overline;给文字设置上划线。
+
+	text-decoration: line-through;删除线
+
+	text-decoration: none;取消文字的所有的修饰。一般常见于a标签的下划线
+
+	text-transform: lowercase（露玩kei斯）;设置英文字母小写
+
+	text-transform: uppercase（啊破kei斯）;设置英文字母大写
+
+	text-align:;设置文本的对齐方式。值有（left左对齐）（right右对齐）（center居中对齐）
+
+	text-indent（音等特）:;设置文本的缩进。单位像素（px）或者（em）1个em等于一个汉字的距离
+
+	font-family: 设置字体的种类。
+
+	font-style: oblique（饿不里可）;设置文本倾斜
+
+	border: #ccc solid 1px;设置边框，边框的合写。第一个参数是边框颜色，第二个参数边框的样式 solid（实线）dashed（大是的）（虚线），第三个参数是边框的像素。
+
+	border-bottom:;下边框
+
+	border-top:;上边框
+
+	border-left:;左边框
+
+	border-right:;右边框
+
+	border-radius:;设置圆角，图片和边框等都可以设置，单位像素/百分比。
+
+	background-color:;设置背景颜色
+
+	background-image: url();设置背景图片，url括号里写图片的路径。
+
+	background-repeat:;设置背景图片重复或者不重复。值为（repeat）重复，也是默认值，值为（no-repeat）不重复，值为（repeat-x）水平方向重复，值为（repeat-y）垂直方向重复
+
+	background-position:;设置背景图片的移动。第一个值是水平方向距离，第二个值是垂直方向距离
+	
+	background:;合写。第一个值是设置背景图片，第二个值设置背景颜色，第三个值设置背景图片重复/不重复，第四个值设置背景图片的定位移动
+
+	background-size:;设置背景图片的大小，单位像素。第一个值是width，第二个值是height。但是建议只改第一个值（width），因为这样（height）会等比例缩放，不会造成图片精度的丢失
+
+	background-attachment（啊他吃们特）:;设置背景图片显示方式。值为（scroll）随着垂直方向的滚动条滚动，背景图片跟着移动，值为（fixed）随着垂直方向的滚动条滚动，背景图片不会跟着移动
+
+	display:;设置元素的显示/隐藏，隐藏的元素原本占有的位置，将不会占有，后面的元素会补上来。值为block（让元素显示（还可以让行内元素或者行内块元素转换成快级元素）），值为none（让元素隐藏）。
+
+	visibility: hidden;让元素隐藏。但是注意的是隐藏的元素原本占有的位置，任然占有。
+
+	overflow: hidden;设置子元素超出父元素的部分隐藏。给父元素设置。
+
+	list-style: none;取消ol和ul列表前面的圆点
+
+
+	内填充和外边界：
+
+		padding:;内填充，设置内容区域距离上下左右有多少距离，单位像素（px）或者（em）。合写，第一个值上，第二个值有，第三个值下，第四个值左
+
+		padding-left:;
+
+		padding-right:;
+
+		padding-top:;
+
+		padding-bottom:;
+
+		margin:;外边界，设置盒子区域距离上下左右有多少距离。其用法和padding一样。
+
+		float:;浮动，浮动的元素脱离标准文档流，可以让元素在一行上显示，浮动的元素不占位置。值有（left）左浮动，值为（right）右浮动
+
+		clear: both;清除浮动。因为浮动的元素不占有位置，就很可能会造成页面布局的混乱，下面的元素很可能会填充上来，所有需要清除浮动让他占有位置。（注意点：给父元素设置高可以不用清除浮动，但是建议最好清除浮动）
+	
+
+	阴影部分：
+	
+		box-shadow:;第一个值是水平方向，第二个值垂直方向，第三个值模糊距离，第四个值阴影颜色。
+
+		text-shadow:;第一个值是水平方向，第二个值垂直方向，第三个值模糊距离，第四个值阴影颜色。
+
+	
+
+	定位部分：
+
+		position: static（斯但体可）;静态定位。默认的标准文档流
+
+		position: absolute;绝对定位。绝对定位的元素会脱离标准文档流，不会占有位置。它是相对于父元素来定位的除了给父元素设置（static静态定位），如果父元素没有设置定位，就相对于body来定位。定位的元素可以通过left，right，top，bottom来移动元素的位置。
+
+		position: relative;相对定位。相对定位的元素不会脱离标准文档流，占有位置。它是相对于自己来定位的。定位的元素可以通过left，right，top，bottom来移动元素的位置。
+
+		position: fixed（烦可斯的）;固定定位。固定定位的元素会脱离标准文档流，不占有位置。它是相对于body来定位的。定位的元素可以通过left，right，top，bottom来移动元素的位置。
+
+		z-index:;设置定位元素的层级问题，只有定位的元素才会有效。值越大元素就飘的越高，单位没有。不设置默认是0，最大不超过65535。
+
+
+	滚动条部分：
+	
+		overflow: auto;超出部分自动加滚动条。
+	
+		overflow-x: auto;水平方向超出部分自动加滚动条。
+
+		overflow-y: auto;垂直方向超出部分自动加滚动条。
+			
+		overflow:visible（维贼包）;默认值。
+		
+		overflow：scroll（斯可饶）;内容超出，会有滚动条出现以便查看剩余的内容
+		
+		overflow：inherit;规定应该从父元素上继承overflow属性的值
+
+		min-width:;设置元素的最小宽度。
+
+		max-width:;设置元素的最大宽度
+
+		white（外特）-space（斯被斯）:nowrap（no rua 趴）;强制在同一行上显示文字
+	
+		text-overflow:;文字溢出部分处理，配合overflow: hidden;属性使用。值为（ellipsis）超出的部分用省略号代替，值为（clip（克来铺））直接进行裁切，但是不美观。
+
+		cursor（可扫）:;设置鼠标放到元素上的效果。值为（default）鼠标变成小白默认的显示，值为（pointer（铺ruai特））鼠标变成小手显示，值为（move）鼠标变成移动状态，值为（text）鼠标变成输入状态
+
+		resize: none;防止拖拽文本域，一般用于多行文本框
+	
+		outline（奥来）: 0/none;可以取消文本框和按钮的获取焦点时的状态
+
+
+
+	过渡部分：
+	
+		transition:;设置元素的过渡效果。合写，第一个值是需要过渡的属性如果是（all）代表所有的属性，第二个值过渡需要花费的时间单位s，带三个值运动的曲线（linear匀速）（ease有快到慢）（ease-in加速）（ease-out减速）（ease-in-out先加速后减速），第四个值延迟多长时间开始执行单位s。
+
+		transition-property（铺ruang铺tei的）:;需要过渡的属性。
+
+		transition-delay（得类）:;延迟多长时间开始执行单位s。
+	
+		transition-duration（丢瑞剩）:;过渡需要花费的时间单位s。
+
+		transition-timing-function：运动的曲线。
+
+
+
+
+	2D部分：
+
+		transform: translate(x,y,z);设置元素的偏移，第一个值是水平方向，第二个值是垂直方向，第三个值是z轴方向。一般配合定位使用，让元素能够绝对居中。
+
+		transform:rotate(deg);旋转多少度，单位deg（度）。
+
+		transform-origin:left top;调整元素变化的点。
+
+		transform: scale（斯该哦）(x,y,z);设置元素的缩放。
+
+		transform: translate() rotate(deg) scale(x,y,z) 合写。
+
+
+
+
+	动画部分：
+
+		animation-name：执行动画的名称。
+
+		animation-duration：动画执行过程需要的时间。
+
+		animation-timing-function：动画速度函数：linear均速 ease和ease-in等。还有一个steps()：分帧动画：就是非连续动画，而是设定动画从开头到结束的过程中变化几次。
+
+		animation-delay：延迟时间
+
+		animation-iteration（一特瑞剩）-count：重复执行的次数。如果值是infinite的话，就是无限循环播放。
+
+		animation-direction（得ruai可剩）：方向。值：normal，reverse，alternate（奥特耐特）。
+
+		animation-play（牌来）-state（斯dei特）：是否停止动画。值为running（ruai林）是运行动画。值为paused（趴斯的）停止动画。
+
+		animation-fill（fiu哦）-mode（冒的）：如果值为forwards（for 我次）设置对象的状态为动画结束时的状态，值为backwards（版可我次）就是设置对象的状态为开始时的状态，如果值为both（抱负）设置对象的状态为动画结束或开始的状态。
+
+		animation:;合写按照上面的顺序即可。
+
+		@keyframes用来定义动画 main（自定义名字，方便在元素中调用）
+
+
+
+
+元素的其他问题和方法部分：
+
+
+	元素的模式分类：
+	
+		（1）行内元素：span，a等。
+	
+			特点：
+			
+				（1）总是和相邻的元素在一行上显示
+			
+				（2）行内元素的宽和高是不可以设置的
+	
+				（3）行内元素默认的宽和高就是他内容撑开的
+			
+				（4）行内元素水平方向的padding和margin是可以设置的，垂直方向无效
+			
+				（5）行内元素可以包含文本和其他行内元素，不可以包含快级元素
+
+
+		（2）快级元素：div，ul，ol，h1-h6等。
+		
+			特点：
+		
+				（1）总是从新的一行开始，自己独占一行
+	
+				（2）快级元素的宽和高是可以设置的
+	
+				（3）快级元素的padding和margin也是可以设置的
+	
+				（4）快级元素可以包含行内元素和行内块元素和其他的快级元素和文本
+
+
+		（3）行内块元素：img，input等
+	
+			特点：
+	
+				（1）总是和相邻的元素在一行上显示
+	
+				（2）行内块元素的宽和高是可以设置的
+	
+				（3）行内块元素的padding和margin也是可以设置的
+	
+				（4）行内块元素可以包含文本，行内元素和其他的行内块元素，不可以包含快级元素
+
+	
+	元素模式的转换：
+	
+		（1）转成快级元素：设置display: block;属性即可。
+	
+		（2）转成行内元素：设置display: inline;属性即可
+	
+		（3）转成行内块元素：设置display: inline-block;属性即可
+
+
+
+
+
+	标签语言化的好处：
+	
+		（1）提高阅读性
+	
+		（2）有利于浏览器和网络爬虫更好的解析
+	
+		（3）有利于团队的开发
+	
+		（4）方便其他设备解析，移动设备，盲人设备
+
+
+
+	清除浮动的方法：
+	
+		（1）添加额外的标签来清除浮动。
+	
+		（2）给父元素添加overflow：hidden；因为他会触发BFC清除内部浮动
+	
+		（3）使用伪元素来清除浮动
+
+
+
+
+
+	解决img标签底部三像素的方法：
+	
+		（1）直接转成快级元素，设置display：block；属性。
+	
+		（2）设置vertical（玩体考）-align：bottom；
+
+
+
+
+	解决外边距塌陷的方法：
+	
+		（1）给父元素设置overflow：hidden；属性
+	
+		（2）给父元素加边框
+	
+		（3）给父元素设置padding属性
+	
+		（4）设置浮动属性
+
+
+	精灵图：就是处理网页背景图片的一种方式。将网页用到的背景图片，全部集中到一张大图上去。
+	
+		优点：
+	
+			（1）提高了网页加载的速度，减少了浏览器向服务器发送请求的次数
+	
+			（2）提高了用户的访问的快捷性
+	
+	
+		缺点：
+	
+			（1）维护成本太高
+	
+			（2）使用繁琐，麻烦
+
+
+	BFC介绍（快级格式化上下文）：它是一个独立的渲染区域，只有Block-level box参与，它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。
+	
+		具备BFC的条件：
+	
+			（1）只有快级元素才能具有BFC的条件
+
+
+	
+		触发BFC的条件：
+
+			（1）float属性不为none
+
+			（2）position为absolute或者fixed
+
+			（3）display为inline-block、table-cell（赛奥）、table-caption（看破剩）、flex、inline-flex
+
+			（4）overflow不为visible
+
+	
+		BFC的作用：用来清除内部的浮动，属性给父元素设置。
+
+	
+
+	滑动门技术及应用
+		
+		（1）滑动门技术的原因：它从新的角度构建页面，是使个种特殊形状的背景能够自由拉伸滑动，以适应元素内部的文本内容。
+	
+		（2）滑动门实现的原理：就是利用css精灵（主要是背景位置）和盒子padding撑开宽度，以便能适应不同字数的导航栏。
+	
+
+
+	
+	box盒子模型：内容区域（content）+ 内边距（padding）+ 边框（border）+ 外边距（margin）。
+	
+	css3盒子模型：box-sizing：border-box;这种盒子模型可以把padding和border都算到宽和高里面，宽和高会自动减去边框和padding
+	
+	
+	
+
+
+补充部分：
+		
+		
+	
+
+	1，使用表格对象seo（搜索引擎优化的）的影响：当蜘蛛爬虫爬行页面时会遇到多层表格的嵌套，就会跳过嵌套的内容或者直接放弃整个页面，会抓取不到页面的核心，会对网站的优化产生很大的影响。
+		
+			
+		
+		
+		（1）表格的问题：表格式数据混入你的内容中，使得文件的大小无畏的变大，而用户访问每个页面都必须下载一次这样的格式信息。
+		
+		
+		
+	2，为什么利用多个域名来存储网站资源会更有效
+		
+			
+		
+		（1）CDN缓存更方便
+		
+		（2）突破浏览器并发限制
+		
+		（3）节约cookie带宽
+		
+		（4）节约主域名的连接数，优化页面响应速度
+			
+		（5）防止不必要的安全问题
+	
+	
+	3，网页的重绘以及重构
+		
+			
+		
+		（1）重绘是一个元素的外观改变所触发的浏览器的行为，如：改变背景色等属性，浏览器会根据元素的新属性重新绘制，使元素呈现新的外观，重绘不会带来新的布局。
+		
+		
+	
+	4，使用image和canvas处理图片的区别：
+		
+			
+		
+		（1）image是通过对象的形式描述图片的，canvas（看玩斯）是通过专门的API将图片绘制在画布上的
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

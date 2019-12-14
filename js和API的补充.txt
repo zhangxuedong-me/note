@@ -1,0 +1,12 @@
+一、获取css样式
+		
+	
+	1，document.styleSheets[index]：获取到页面中的样式表，通过索引获取哪一个样式表
+		
+		
+		（1）var arr = sheet.cssRules || sheet.rules;：通过这个方法可以获取到页面中的哪一个属性，先处理兼容性，通过角标来索引哪一个元素的样式
+		
+		（2）通过arr[0].style.width
+	
+	
+	
