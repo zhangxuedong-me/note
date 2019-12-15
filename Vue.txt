@@ -1083,6 +1083,65 @@ day5
 		});
 	
 	
+	
+	2，使用query的方式接受和穿参数的方式：
+	
+		
+	
+	
+
+	
+		<div id="app">
+
+
+			 <router-link to="/login?id=10&name='小美'">登录</router-link>
+
+
+			 <router-view></router-view>
+		</div>	
+
+	
+		let router = new VueRouter({
+
+        		routes : [
+
+            			{
+                			path : "/login",
+                			component : {
+
+                    				template : "<div>{{$route.query.name}}组件</div>",
+
+                    				created() {
+
+                        				//第一种接收参数的方式
+
+                        				console.log(this.$route);
+                        				console.log(this.$route.query.id);
+
+                 
+                    				}
+                			}
+            			}
+        		]
+    		});
+
+		
+
+
+		let vm = new Vue({
+
+        		el : "#app",
+
+       			data : {},
+
+        		methods : {},
+
+        		router,
+    		});
+
+
+		
+
 		
 	
 	2，路由组件标签vue-router-to属性赋值的几种方式：
@@ -1590,7 +1649,75 @@ day5
 			router,
 		});
 	
+
+
+
+
+	7，命名视图实现经典布局：拥有多个视图容器(<router-view></router-view>)，布局页面就应该有很多的视图，在视图中防止其他的内容，这个时候就需要用到命名视图
+				
+				
+				简单说就是给容器加上name属性，components中定义的模板
+
+
+		
+		
+			let header = {
+
+        			template : "<div class='head'>头部</div>"
+   			}
+
+   			let nav = {
+			
+        			template : "<div class='nav'>导航条</div>"
+   			}
+
+   			let news = {
+
+       				template : "<div class='news'>新闻部分</div>"
+    			}
+
+			
+
+			let router = new VueRouter({
+
+        			routes : [
+
+            				{
+               					path : "/",
+                				components : {
+
+                    					//default属性是vue自带的属性，其余的属性我们可以自己定义
+
+                    					//通过name属性绑定到容器组件标签上。default属性表示是默认的意思
+
+                    					"default" : header,
+
+                    					"nav" : nav,
+
+                    					"news" : news
+
+                				}
+            				}
+        			]
+   			});			
+
+
+
+			let vm = new Vue({
+
+        			el : "#app",
+
+       				data : {},
+
+      			  	methods : {},
+
+        			router
+
+    			});
 	
+			
+
+
 
 	
 	
