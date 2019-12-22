@@ -92,6 +92,7 @@ day1
 						console.log("aaa");
 					}
 				},
+
 			});
 		
 	
@@ -1140,7 +1141,65 @@ day5
     		});
 
 
+
+
+
+	3，使用props来实现路由传值和接收值：通过这种方式来实现传值刚方便，因为使用了this.$route这种方式获取数据相当于和vue-router进行了耦合
+	
+	
+	
+	
+		路由组件：只要在配置路径的时候，设置props属性为true，路径后面要跟变量，通过props来获取，直接通过this.id获取
+	
+	
+
+			<div>
+
+     				 路由接收的参数是：{{ this.id }}
+
+ 			</div>
+
+
 		
+			export default {
+
+    				data() {
+
+        				return {
+
+        				}
+    				},
+				
+				//接收每一个连接过来的组件，并且获取该参数
+   				props : ['id'],
+
+			}
+			
+			
+		
+		连接到路由组件的组件：	
+
+	
+	
+	
+			 <router-link to="/dong/冬哥">冬哥</router-link>
+
+     			 <router-link to="/dong/小颖">小颖</router-link>
+
+     			 <router-link to="/dong/小美">小美</router-link>
+	
+			
+			
+
+		配置路由参数组件(index.js)：
+	
+	
+			
+			
+			{ path: "/dong/:id", props: true, component: childRouter }
+
+
+
 
 		
 	
@@ -1891,4 +1950,436 @@ day5
 		
 				
 				（6）style 组件的样式：就是针对我们的 template 里内容出现的 html 元素写一些样式 
+	
+		
+	
+
+
+
+	8，vue的插槽：
+	
+	
+	
+	
+		（1）匿名插槽：会将组件中的内容对应的放到定义插槽的位置，通过在子组件中定义solt标签，在父组件中引入子组件，在子组件中填入内容，就可以填到插槽里
+	
+			
+			子组件中：
+	
+	
+	
+				 <div>
+
+
+					<p>今天是<slot></slot></p>
+				</div>
+	
+		
+	
+			父组件中：
+	
+	
+	
+				 <child>
+					
+					在子组件中填值，会填入到子组件中定义的插槽
+
+            				<span style="font-size: 20px;color: green;">你笑啥</span>
+
+            				<span style="font-size: 20px;color: blue;">星期一</span>
+
+            				<span style="font-size: 20px;color: red;">星期二</span>
+
+        			</child>
+
+	
+				
+	
+		
+			
+			
+	
+		
+		（2）默认值的插槽：就是插槽本身带有默认值，如果在父组件中引入，并且重新填值的话，那么插槽带有的默认值会被覆盖
+	
+			
+			
+			子组件：
+	
+	
+	
+				<slot>
+					此时的子组件带有默认值
+
+         				<span style="color: red;">高兴</span>
+
+     				</slot>
+	
+	
+	
+	
+			父组件：
+	
+	
+	
+				<div>	
+					没有填入值的子组件标签，使用的是默认值
+					<child></child>
+
+        				<child></child>
+
+        				<child></child>
+					
+					
+					填入值的子组件标签使用的是填入放入值
+        				<child>难过</child>
+
+				</div>
+	
+	
+	
+	
+		（3）具名插槽：可以自由的通过slot属性指向子组件中定义插槽带有name属性相匹配的值，可以自由的选择性，填插槽
+	
+	
+	
+	
+			子组件中：	
+
+	
+			
+				<div>
+	
+					
+					<p><slot name="dong"></slot></p>
+
+      					<p><slot name="xue"></slot></p>
+
+     					 <p><slot></slot></p>
+
+				</div>
+	
+	
+	
+			父组件中：
+	
+	
+		
+
+				<div>
+
+					 <child>
+						
+						通过slot的值和子组件中的插槽的name属性相对于的填值，slot属性要定义在标签上
+            					<span slot="xue" style="font-size: 30px;color: red;">我是尉明慧不要脸</span>
+
+            					<span slot="dong" style="font-size: 30px;color: blue;">我是尉明慧不要脸</span>
+
+            					<span style="font-size: 30px;color: yellow;">冬哥</span>
+
+        				</child>
+
+				</div>
+	
+	
+	
+	
+		（4）作用域插槽：可以将子组件中定义的数据传入到父组件中。子组件中定义插槽的时候，可以绑定自定义属性，将data中的值，当做变量。在父元素中通过slot-scope属性来获取值他的属性值随便起，拿到是一个对象，也是要在标签上定义属性。
+	
+	
+	
+	
+			
+			子组件中：
+	
+				title属性和age属性就是要传过去的值
+	
+				<p>传给父元素的参数是：<slot name="name" :title="name" :age="age"></slot></p>
+	
+	
+	
+	
+			父组件中：
+	
+	
+	
+	
+				 <child>
+						
+					通过slot-scope属性获取值，再传回到子组件的插槽中
+
+            				<span slot="name" slot-scope="obj">{{obj.title}}===={{obj.age}}</span>
+
+        			</child>
+	
+
+	
+	
+	
+	注意点：如果在vue中使用console.log()方法报错的话，解决方法使用window.console.log()来解决。	
+
+	
+
+
+	
+	
+	8，ElementUI：是基于wue技术体系的前端组件库。
+	
+	
+	
+	
+		
+	
+	
+	9，Eslint插件：是用来统一javascript代码风格的工具，不包含html和css等，在vscode中安装此插件
+		
+	
+	
+	
+	
+		（1）使用：打开vscode配置文件 settings.json,配置这些数据，在首选项然后设置，上面有一个打开设置
+		
+	
+			
+			"eslint.enable": true,
+
+				"eslint.autoFixOnSave": true,
+				"eslint.run": "onType",
+				"eslint.options": {
+    					"extensions": [".js",".vue"]
+				},
+
+				"eslint.validate": [
+    					{ "language": "html", "autoFix": true },
+    					{ "language": "javascript", "autoFix": true },
+    					{ "language": "vue", "autoFix": true }
+				 ]
+	
+	
+
+	10，项目中文件的介绍：
+	
+	
+	
+		.browserslistrc 该文件会被 Babel 和 Autoprefix 用来根据浏览器的版本确定需要转译的 JavaScript 特性和 CSS 浏览器前缀
+
+  		.editorconfig 编辑器配置文件，编辑器会根据该文件选择编辑格式
+
+  		.eslintrc.js ESLint配置文件
+
+  		.gitignore Git忽略配置文件
+
+  		babel.config.js Babel转码工具配置文件
+
+  		package-lock.json 包管理工具的锁定文件
+
+  		package.json	包说明文件
+
+  		postcss.config.js	postcss配置文件
+
+  		README.md 说明文档
+		
+
+	
+
+	11，新的组件引入方式：把所有的组件一次性的加载到页面，会造成首屏加载时间过长，所以需要下面这种按需加载的方式。
+		
+
+	
+		格式：component: () => import('组件的名字')
+	
+	
+	
+	12，初始化git仓库：
+		
+		
+		（1）首次提交：
+
+
+			 git remote add origin 远程仓库地址
+
+			 git push -u origin master  // -u 的意思是 记录当前的推送信息
+			
+			
+		（2）每次提交
+	
+	
+	
+			 git add .  # 工作区修改到暂存
+
+ 			 git commit -m "log日志" # 暂存区到本地仓库
+			
+			 git push 
+	
+		
+	
+
+	13，局部样式：因为在插件中设置样式都属于全局样式，若果其他的组件有相同的类名，样式就会冲突。所以需要设置局部样式
+	
+	
+	
+		在style标签中设置lang属性值为less就可以使用less语法，在设置scoped属性为局部样式
+	
+	
+
+	
+	14，element-ui表单数据的验证：
+	
+	
+	
+	
+		（1）el-form：组件签绑定model属性，值为我们定义的数据，是要验证的数据。绑定rules属性绑定要验证的规则规则要自己定义
+	
+	
+	
+		（2）form-item：组件设置prop属性，值为要验证的字段
+		
+			
+			
+		（3）给input组件设置数据双向绑定
+
+		
+			
+		（4）设置一个对象，data中定义的字段每一个字段定义成数组，数组里面是每一个对象每一个对象是一个验证规则
+		
+
+	
+		（5）验证的规则属性：
+	
+	
+	
+			required：如果数组为true的话，就是必须填写内容，
+		
+	
+			message：如果不满足要求的话，他里面的内容会提示出来
+	
+	
+			validator：自定义验证函数，里面有三个参数rule, value, callBack，第一个参数是验证规则，第二个参数是验证的值，第三个参数是回调函数
+			
+				   如果验证成功调用回调函数，如果验证失败还要调用回调函数，函数传一个参数是newError()在里面写入内容，如果不调用回调函数的话，不会执行
+	
+	
+	
+			pattern：接收一个正则表达式
+		
+	
+	
+			validate：是通过dom对象调用的，接收一个参数参数有俩个，第一个参数是验证成功与否，第二个参数是验证失败的字段，给表单元素验证的方法
+	
+	
+	
+	
+
+	
+	15，install：设置全局组件。Vue.use()方法就是内部调用的这个方法它是一个函数，接收一个参数Vue，然后在他的内部注册组件，就可以在全局中访问到
+		
+			
+		
+		export default { 
+
+  			install(Vue){
+
+      				Vue.component(组件名，组件)
+      				Vue.component()
+    
+  			}
+		}
+	
+	
+	
+		
+		
+	16，img的src属性问题：
+		
+	
+			
+		（1）如果给图片的src属性设置固定的值字符串，会将 img 的src属性值 编译成base64字符串，可以预览
+	
+	
+	
+		（2）如果img的属性是动态的值，变量再用三元表达式的时候判断的时候，再给另外一个路径的话是一个相对路径的话，那么这个路径不能让图片显示
+	
+	
+	
+		（3）使用 require导入图片的路径，赋值给一个属性，然后去做三元表达式判断
+	
+	
+	
+
+		
+	17，导航守卫：从一个路由跳转到另一个路由的时候触发此守卫
+	
+	
+	
+	
+		（1）router.beforeEach：全局守卫。接收一个参数是函数，有三个参数，第一个参数（to）是要跳去的路由对象，第二个参数是from（要离开的路由对象）
+		
+					第三个参数是next是回调函数。必须调用否则就会死在这里。直接调用next()可以继续执行，如果里面传入参数路径的话，就是拦截在该路径中
+	
+			
+		
+			
+			import router from './router'
+
+				// 全局前置守卫
+
+				router.beforeEach(function (to, from, next) {
+
+  					// 判断 拦截的范围
+
+  					if (to.path.startsWith('/home')) {
+
+    					// 进入到了拦截范围
+
+    					// 判断是否登录 有token 就登录 没token就没登录
+
+    					let token = window.localStorage.getItem('user-token') // 获取token
+
+    						if (token) {
+
+      							// 如果有token
+
+      							next()
+
+    						} else {
+
+      							next('/login') // 没有token 就跳转到登录页
+
+    						}
+
+  					} else {
+
+    						next() // 放行
+
+  					}
+
+				})
+
+
+				// 先导出
+				export default router
+	
+	
+	
+
+	19，axios拦截器：项目中所有的请求，会先到拦截器中做处理，然后通过return的方式，再把请求放行到服务器中
+		
+	
+
+	
+		作用：如果有很多的请求的参数一致的话，就不需要在每一个请求中设置相同的参数，在请求到大拦截器的时候，统一的把参数注入
+
+
+			
+			
+		（1）axios.interceptors.request.use()：第一个参数是一个成功的函数，请求的拦截器里面函数接收一个参数config，包含了所有请求的信息，可以给他注入相同的请求参数，然后返回即可，第二个函数时错误的函数
+	
+	
+
+
+		（2）axios.interceptors.response.use()：响应拦截，跟请求拦截的参数一样，请求回来的数据会先到拦截器里面，做相应的处理然后返回到请求中
+	
+	
+	
+		
 		

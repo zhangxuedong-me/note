@@ -618,3 +618,28 @@ day7
 			
 		
 			（1）hasOwnProperty()：判断对象中是否包含某个属性返回，如果有返回true，没有返回false，判断对象里面的属性需要加上引号
+		
+		
+	3，数值新增的方法：
+		
+	
+	
+
+		（1）Number.isFinite（fai耐特）()：检测一个数值是否为有限的，即不是Infinity，会返回boolean类型的值
+		
+	
+		
+		（2）Number.isInteger（音题这）()：判断一个数是否为整数
+		
+			
+			
+	4，Math对象的扩展：
+	
+	
+	
+	
+		（1）Math.trunc(传可)() ：去掉一个数的小数部分，返回整数部分
+			
+		
+		
+		（2）
