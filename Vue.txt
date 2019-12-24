@@ -2381,5 +2381,29 @@ day5
 	
 	
 	
+
+	
+	20，处理大数字：javascript有数值安全范围如果超过这个范围数值会出错
 		
+	
+		
+		（1）需要使用第三方插件来完成：npm i json-bigint
+		
+			
+		
+		（2）引入第三方的包：import JSONBig from 'json-bigint'
+		
+	
+
+		（3）在到达响应拦截之前设置修改响应数据	
+			
+			
+			
+			transformResponse: [function (data) {
+
+    				// data 是响应回来的字符串
+
+  				return jsonBigInt.parse(data)
+
+  			}],
 		
