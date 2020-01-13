@@ -280,9 +280,7 @@ day1
 				.number：将用户输入的值转为数值类型
 			
 
-					v-model.trim="msg"
-
-
+				.v-model.trim="msg"
 
 
 		v-for="(变量, 索引) in 要遍历的项"：如果不需要索引的话，可以把小括号去掉
@@ -370,8 +368,9 @@ day3
 				
 				
 		<input type="text" ref="myText">
+
 		
-		
+		通过this.$refs.myText方法获取
 		
 		
 	3，自定义指令：
@@ -472,7 +471,7 @@ day3
 
 		
 			
-	5，axios插件发生ajax请求：
+	5，axios插件发送ajax请求：
 			
 			
 			
@@ -1000,13 +999,16 @@ day4
 
 					{	
 						//path是路径
+
 						 path : "/food", 
 
 						//组件
+
 						component : {
 
 							template : `<div>猪肉鱼肉鸭头</div>`,
 						}
+
 					},
 			
 				]
@@ -1096,7 +1098,7 @@ day5
 	
 	
 	
-	2，使用query的方式接受和传参数的方式：
+	2，使用query的方式接受和传参数的方式
 	
 		
 	
@@ -1132,9 +1134,13 @@ day5
 
                  
                     				}
+
                 			}
+
             			}
+
         		]
+
     		});
 
 		
@@ -1498,6 +1504,7 @@ day5
 
 			let vm = new Vue({
 
+
 				el : "#app",
 
 				data : {},
@@ -1505,6 +1512,7 @@ day5
 				methods : {},
 
 				router,
+
 			});
 		
 		
@@ -2157,7 +2165,7 @@ day5
 		
 	
 			
-			"eslint.enable": true,
+				"eslint.enable": true,
 
 				"eslint.autoFixOnSave": true,
 				"eslint.run": "onType",
@@ -2440,4 +2448,183 @@ day5
 	
 			
 		（3）接收方使用导入的包名.$on(传过来的事件名,callback)
+	
+	
+	
+
+
+day6
+	
+	
+	
+	
+	1，使用第三方插件进度条：
+	
+	
+	
+	
+		（1）安装插件：npm install --save nprogress
+	
 		
+		（2）引入插件：import nprogress from 'nprogress'
+		
+	
+		（3）引入css样式：import 'nprogress/nprogress.css'
+
+	
+		（4）使用插件：在导航守卫里面创建，当路由改变的时候触发。在beforeEach里面调用nprogress .start()开始，在afterEach里面调用nprogress .done()结束
+		
+
+
+	2，async和await：解决ajax回调函数的问题await会造成代码的堵塞，必须要给父级函数设置async配合使用，await强制的把代码从异步变成了同步
+		
+			
+		
+		async delData (id) {
+
+      			await this.$confirm('真的要删除吗，删除之后无法找回？')
+
+      			await getIdArticleInfo(id, 'delete')
+
+      			// 重新渲染页面
+
+     			 this.packageFactorParams()
+
+    		},
+	
+	
+	
+	3，webpack：项目打包：npm run build使用这个命令可以对项目打包，出现一个dist文件夹，里面是打包好的js文件和css文件等
+	
+	
+	
+	
+	4，计算属性的get和set的高级用法：计算属性由俩部分组成就是get和set
+		
+	
+
+		
+		（1）get()：用来获取计算属性的值。需要定义在一个对象中
+	
+	
+			
+		（2）get()：用来设置计算属性的值。需要定义在一个对象中
+	
+	
+	
+	
+	5，动态添加响应式数据：就是数据是动态生成的，并没有在data函数中定义，但是动态添加的数据必须在必须在对象中
+		
+	
+	
+	
+		（1）通过this.$set(父级对象，属性，初始值)方法
+		
+			
+		（2）先使用this.obj.name = 值，然后调用this.$forceUpdate()强制更新视图
+	
+	
+	
+		
+
+Vuex的使用：
+
+	
+	1，vuex的介绍：
+		
+
+		（1）是一个专为vue.js应用程序开发的状态管理模式，他采用集中式存储管理应用的所有组件的状态。
+		
+			
+		（2）实现组件之间的通信，用来定义组件之间需要共享的数据
+		
+	
+
+	2，vuex的使用
+
+	
+		（1）安装vuex的包：npm i vuex
+		
+		
+		
+		（2）使用vuex的包：在一个单独的js文件中引入vuex的包，使用Vue.use()全局注册
+
+	
+	
+		（2）导出一个vuex的的实例对象：通过new Vuex.Store({})创建一个vuex的实例
+		
+	
+
+			const store = new Vuex.Store({
+  
+   				类似于组件中的 data
+   
+  				state: {
+    					count: 0
+  				}
+			});
+
+			export default store;
+			
+		
+			
+		（3）vuex的属性介绍：
+		
+
+	
+			（1）state: {}：用来定义共享的数据。在组件中使用：通过$store.state.定义的属性
+			
+	
+	
+			（2）mutations: {}：用来定义函数逻辑，但是函数里面不能有异步的操作。函数的第一个参数永远都是state通过他可以拿到state里面的值。在组件中使用：$store.commit('函数的名称', 参数)，函数只能接受一个参数
+			
+	
+			
+			（3）actions: {}：用来定义函数，函数里面定义异步操作，但是不能在actios里面的函数里面修改state里面的值，只能来调用mutations里面定义的函数。定义的函数的第一个参数永远都是store实例。在组件中使用：$store.dispatch("函数名", 参数)
+	
+	
+	
+补充：
+	
+	
+	
+	1，v-mode的高级使用：就是在组件中绑定v-model
+	
+	
+		（1）第一步相当于把父组件中的内容传递到子组件，子组件通过value来接收，:value="active"
+		
+	
+		（2）第二步会默认的接收一个input的自定义事件，子组件可以订阅这个事件，父组件通过@input来接收，
+		
+			
+		（2）v-mode就是上面俩步的缩写，也就是子父组件之间的通信
+	
+	
+		
+	
+	2，VeeValidate表单验证：在vue.js的学习中的cookbook
+	
+		
+	
+		（1）安装：npm install vee-validate --save
+		
+	
+		
+		
+	3，lodash函数工具库：前端标准的工具函数库。
+	
+	
+	
+		（1）官方文档：https://lodash.com/
+		
+	
+		
+		（2）翻译的中文文档：https://www.lodashjs.com/
+		
+		
+
+		（3）优点：支持按需加载
+			
+						
+	
+			
