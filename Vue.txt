@@ -6,6 +6,11 @@ day1
 	1，Vue是什么：是一个用于创建用户界面的开源javascript框架，也是一个创建单页应用的web应用框架
 	
 	
+	MVVM：是Model-View-ViewMdel的缩写，它是一种基于前端开发的架构模式，其核心是提供对View和ViewModel的双向数据绑定
+		
+		这使的ViewModel的状态改变可以自动传递给View，就是所谓的双向数据绑定	
+
+	
 	2，vue的特点：
 		
 		
@@ -160,7 +165,7 @@ day1
 			<p v-show="flag">哈啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
 			
 
-		v-on：标定事件的指令。用来绑定事件的他的值必须是一个函数
+		v-on：特定事件的指令。用来绑定事件的他的值必须是一个函数
 		
 				
 			格式：v-on:事件类型="事件处理程序"
@@ -944,7 +949,6 @@ day4
 	
 	
 
-	
 				（1）首次加载页面很慢
 			
 			
@@ -1343,11 +1347,11 @@ day5
 	
 			<div id="app">
 		
-				<router-link :to="{name : abc}">上海</router-link>
+				<router-link :to="{name : 'abc'}">上海</router-link>
 
-				<router-link :to="{name : abc}">北京</router-link>
+				<router-link :to="{name : 'abc'}">北京</router-link>
 
-				<router-link :to="{name : abc}">张家口</router-link>
+				<router-link :to="{name : 'abc'}">张家口</router-link>
 
 				<router-view></router-view>
 			</div>
@@ -1887,7 +1891,7 @@ day5
 	
 
 	
-			（3）gitignore：可以获取一些不需要提交的文件。
+			（3）gitignore：可以添加一些不需要提交的项目的文件。
 	
 		
 
@@ -2147,7 +2151,7 @@ day5
 
 	
 	
-	8，ElementUI：是基于wue技术体系的前端组件库。
+	8，ElementUI：是基于vue技术体系的前端组件库。
 	
 	
 	
@@ -2391,12 +2395,12 @@ day5
 	
 
 	
-		作用：如果有很多的请求的参数一致的话，就不需要在每一个请求中设置相同的参数，在请求到大拦截器的时候，统一的把参数注入
+		作用：如果有很多的请求的参数一致的话，就不需要在每一个请求中设置相同的参数，在请求到拦截器的时候，统一的把参数注入
 
 
 			
 			
-		（1）axios.interceptors.request.use()：第一个参数是一个成功的函数，请求的拦截器里面函数接收一个参数config，包含了所有请求的信息，可以给他注入相同的请求参数，然后返回即可，第二个函数时错误的函数
+		（1）axios.interceptors(音特三坡特斯).request.use()：第一个参数是一个成功的函数，请求的拦截器里面函数接收一个参数config，包含了所有请求的信息，可以给他注入相同的请求参数，然后返回即可，第二个函数时错误的函数
 	
 	
 
@@ -2423,7 +2427,7 @@ day5
 			
 			
 			
-			transformResponse: [function (data) {
+			axios.defaults.transformResponse: [function (data) {
 
     				// data 是响应回来的字符串
 
@@ -2525,7 +2529,9 @@ day6
 	
 	
 	
-		
+	6， this.$nextTick(callback)：放在回调函数执行的代码是等到dom更新完成之后再执行
+
+
 
 Vuex的使用：
 
@@ -2607,9 +2613,88 @@ Vuex的使用：
 		
 	
 		（1）安装：npm install vee-validate --save
+
+		
+		（2）需要以下的配置在单独的js文件中
+		
+	
+
+			import Vue from 'vue'
+
+			// 加载需要使用的验证组件
+
+			import { ValidationProvider, ValidationObserver, extend } from 'vee-validate'
+
+			// 加载内置的验证规则
+
+			import * as rules from 'vee-validate/dist/rules'
+
+			// 加载中文语言包
+
+			// 官方文档：
+
+			// https://logaretm.github.io/vee-validate/guide/rules.html#importing-the-rules
+
+			import { messages } from 'vee-validate/dist/locale/zh_CN.json'
+
+	
+			// 注册全局组件
+
+			Vue.component('ValidationProvider', ValidationProvider)	// 包裹每一个要验证的文本框,name属性用来写提示的字段 rules来写验证规则，有多个规则用|管道符隔开,值都是字符串类型
+
+
+			Vue.component('ValidationObserver', ValidationObserver)	// 使用他来包裹整个表单元素
+
+
+			// 配置验证规则和中文提示消息
+
+			Object.keys(rules).forEach(rule => {
+
+  				extend(rule, {
+
+    					...rules[rule],
+
+    					message: messages[rule]
+  				})
+			})
 		
 	
 		
+		（3）this.$refs.myForm.validate()：通过他来手动验证是否通过
+		
+		
+		（4）this.$refs.myForm.errors可以获取到错误的信息，但是要放在一次性定时器中，因为有时间差异，获取到的是数组
+		
+	
+	
+		（5）验证单个选项：
+	
+	
+			import { validate } from 'vee-validate'
+	
+			//第一个参数是验证的选项，第二个参数是验证规则，第三个参数里面是参数配置，可以配置name的字段提示
+			const validateRules = await validate(mobile, 'required|mobile', {
+
+        			name: '手机号'
+      			})
+		
+	
+		（6）自定义验证规则：
+	
+	
+			extend('mobile', {
+
+  				validate: value => {
+
+    					return /^1(3|5|6|7|8|9)\d{9}$/.test(value)
+
+  				},
+
+  				// {_field_}表示在ValidationProvider上面定义的name属性的值，要验证的字段值
+
+  				message: '{_field_}格式有误'
+			})
+
 		
 	3，lodash函数工具库：前端标准的工具函数库。
 	
@@ -2625,6 +2710,40 @@ Vuex的使用：
 
 		（3）优点：支持按需加载
 			
+	
+	
+	4,webSocket
+		
+		
+		（1）感念：是一种在单个TCP连接上进行全双工通信的协议。
+	
+	
+	
+		（2）作用：
+			
+	
+			1，使得客户端和服务器之间的数据交换变得更加简单，允许服务器主动向客户端推送数据
+			
+	
+
+		（3）优点：
+		
+	
+	
+			1，较少的控制开销。
+			
+	
+			2，在连接创建后，服务器和客户端交换数据时，用于协议控制的数据包头部较小
+			
+	
+			3,可以支持扩展
+		
+	
+			4，还有更好的压缩效果
+	
+	
+
+		（4）
 						
 	
 			
